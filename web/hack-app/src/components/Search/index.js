@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import '../App/App.css';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
+import {withRouter} from "react-router-dom";
+const config = {
+  headers: {'Access-Control-Allow-Origin': '*'}
+};
 
 const Print = (props) => (
     <p>
@@ -28,16 +32,17 @@ class SearchBar extends Component {
   }
 
   handleGoClick () {
-    // send the post request!!!!
-    // test by printing
-    //
-
-    axios.post('localhost:8080/search', {
+    axios.post('http://127.0.0.1:5000/search', {
         location: this.state.location,
         topic: this.state.topic
-      })
+      },config)
       .then(function (response) {
         console.log(response);
+        const payload = response.data; 
+        this.props.history.push({
+          path:"/result",
+          state:payload
+        })
       })
       .catch(function (error) {
         console.log(error);
@@ -45,7 +50,7 @@ class SearchBar extends Component {
   }
 
   render () {
-      console.log(this.state)
+    console.log(this.state)
     return (
         <div className='searchbar-container'>
             <Print message="Search Anything"/>
@@ -80,4 +85,4 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar
+export default withRouter(SearchBar)

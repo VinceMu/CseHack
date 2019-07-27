@@ -25,7 +25,7 @@ def clean_text(text):
         text = re.sub(pattern, "", text, flags=re.MULTILINE)
     return text
 
-def scrape(location="", topic="", limit=""):
+def scrape(location="", topic="", limit=100):
     """
     public_tweets = api.home_timeline()
     for tweet in public_tweets:
@@ -40,12 +40,12 @@ def scrape(location="", topic="", limit=""):
     geocode     = "-33.865143, 151.209900"
     lang        = "EN"
     locale      = ""
-    count       = 100
+    count       = limit
     
     search_results = api.search(topic,lang=lang,count=count)
     for tweet in search_results:
         text = clean_text(tweet.text)
-        if len(text)>0:
+        if len(text.strip())>0:
             tweets.append(text)
     return tweets
 

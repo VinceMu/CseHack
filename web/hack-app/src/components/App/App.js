@@ -1,27 +1,19 @@
 import React from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import SearchBar from '../Search'
-// import { MDBInput, MDBCol } from "mdbreact";
-
+import ResultsPage from "../Results/ResultsPage"
+import { BrowserRouter as Router ,Route} from 'react-router-dom'
 function App() {
   return (
     <div className="App">
       <h1>iMu</h1>
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */
-        /* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-        <SearchBar />
+        <Router>
+          <Route exact path="/" component={SearchBar}>
+          </Route>
+          <Route path="/result" component={ResultsPage}>
+          </Route>
+        </Router>
       </header>
     </div>
   );
