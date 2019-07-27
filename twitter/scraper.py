@@ -2,6 +2,7 @@ import tweepy
 import json
 import os
 import re 
+import geocoder
 
 # https://developer.twitter.com/en/docs.html
 # can use bounding box for location filtering 
@@ -37,19 +38,21 @@ def scrape(location="", topic="", limit=100):
         return tweets
     api = sign_in()
     query       = topic
-    geocode     = "-33.865143, 151.209900"
+    osm_geocode = geocoder.osm()
+    geocode     = "-33.865143,151.209900,1000km"
     lang        = "EN"
     locale      = ""
     count       = limit
     
-    search_results = api.search(topic,lang=lang,count=count)
+    search_results = api.search(topic,lang=lang,count=count,geocode=geocode)
     for tweet in search_results:
         text = clean_text(tweet.text)
         if len(text.strip())>0:
             tweets.append(text)
     return tweets
 
-
+a = geocoder.osm("Australia")
+print(a.json)
 tweets = scrape("","soccer")
 for tweet in tweets:
     print(tweet)
