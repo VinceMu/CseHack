@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App/App.css';
 import Button from '@material-ui/core/Button';
 //import the desired component from the Chart.js library
-import { Bar, Line } from "react-chartjs-2"
+import { Bar, Line, Doughnut, Radar } from "react-chartjs-2"
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -37,9 +37,34 @@ export default class ResultsPage extends Component {
         super(props);
         this.state = {
             charData: {
-                labels: [],
-                dataSet: [],
-                backGroundColours: []
+                labels:[],
+                //labels: ['Germany', 'Spain', 'Mexico'],
+                datasets: [
+                    {
+                        // label: "Sentiment",
+                        // data: ['0.2973507046699524','0.8444602489471436','0.9474703073501587']
+                        label:[],
+                        backgroundColor:[
+                            //'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        data:[]
+                    }
+                ],
             }
         }
     }
@@ -84,78 +109,74 @@ export default class ResultsPage extends Component {
                 }
             }
         }
-        {/* //var ctx = document.getElementById('myChart').getContext('2d'); */ }
-        var colourGen = function () {
-            this.colour = {
-                r : 50
-                , g : 100
-                , b : 150
-            }
-            this.colourVec = {
-                r : 10
-                , g : 20
-                , b : 10
-            }
-            this.nextColour = function() {
-                for (let col in this.colour) {
-                    this.colour[col] += this.colourVec[col];
-                }
-                return this.formatColour();
-            }
 
-            this.formatColour = function() {
-                return "RGB(" + this.colour.r + "," + this.colour.g + "," + this.colour.b + ")";
-            }
-        }
-        var col_generator = new colourGen();
         if (data.entity) {
             for (let ent in data.entity) {
                 if (ent) {
                     this.state.charData.labels.push(ent);//setstate
-                    this.state.charData.dataSet.push(data.entity[ent].avg_sentiment);
-                    this.state.charData.backGroundColours.push(col_generator.nextColour());
+                    this.state.charData.datasets[0].data.push(data.entity[ent].avg_sentiment);
+                    //this.state.charData.datasets[0].backGroundColour.push(col_generator.nextColour());
                 }
             }
             for (let ent in data.key_phrases) {
                 if (ent) {
                     this.state.charData.labels.push(ent);
-                    this.state.charData.dataSet.push(data.key_phrases[ent].avg_sentiment);
-                    this.state.charData.backGroundColours.push(col_generator.nextColour());
+                    this.state.charData.datasets[0].data.push(data.key_phrases[ent].avg_sentiment);
+                    //this.state.charData.datasets[0].backGroundColour.push(col_generator.nextColour());
                 }
             }
         }
+
         return (
             <div>
                 
             <Print message="Findings"/>
             <Grid container spacing={3}>
-                <Grid item xs={6}>
+                <Grid container justify="center" item xs={6}>
                 
                     <Bar
                         data={this.state.charData}
                         //options = {this.state.dataSet}
                         width={800}
                         height={400}
-                        options={{ maintainAspectRatio: false }}
+                        options={{ maintainAspectRatio: true }}
                         //background = '#fff'
                     />
                 
                 </Grid>
-                <Grid item xs={6}>
+                <Grid container justify="center" item xs={6}>
 
                     <Line
                         data={this.state.charData}
                         //options = {this.state.dataSet}
                         width={800}
                         height={400}
-                        options={{ maintainAspectRatio: false }}
+                        options={{ maintainAspectRatio: true }}
                         //background = '#fff'
                     />
                 
                 </Grid>
-                <Grid text-align="center" item xs={10}>
+                <Grid container justify="center" item xs={6}>
+                    <Doughnut
+                        data={this.state.charData}
+                        //options = {this.state.dataSet}
+                        width={800}
+                        height={400}
+                        options={{ maintainAspectRatio: true }}
+                        //background = '#fff'
+                    />
                 </Grid>
-                <img class="image" src={require('./pie.png')} />
+                <Grid container justify="center" item xs={6}>
+                    <Radar
+                        data={this.state.charData}
+                        //options = {this.state.dataSet}
+                        width={800}
+                        height={400}
+                        options={{ maintainAspectRatio: true }}
+                        //background = '#fff'
+                    />
+                </Grid>
+                
             </Grid>
             </div>
 
