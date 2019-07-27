@@ -3,10 +3,16 @@ import './App.css';
 import SearchBar from '../Search'
 import ResultsPage from "../Results/ResultsPage"
 import { BrowserRouter as Router ,Route,Switch} from 'react-router-dom'
+import logo from './logo.png'
+
 function App() {
   return (
     <div className="App">
-      <h1>iMu</h1>
+    
+      <h1>
+      <img className="image" src={logo} />
+        Hackvengers
+      </h1>
       <header className="App-header">
         <Router>
         <Switch>

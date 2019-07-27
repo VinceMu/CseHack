@@ -14,10 +14,10 @@ const config = {
 };
 
 const Print = (props) => (
-    <p>
+    <h2>
         {props.message} 
         {/* access message property of props */}
-    </p>
+    </h2>
 )
 
 const BootstrapButton = withStyles({
@@ -97,7 +97,7 @@ class SearchBar extends Component {
     console.log(this.state)
     return (
         <div className='searchbar-container'>
-            <Print message="Explore" />
+            <Print message="Give power to the people." />
             {/* <img 
                 className="App-logo"
                 src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
