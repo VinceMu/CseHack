@@ -21,15 +21,11 @@ class SearchBar extends Component {
     this.setState({ location: e.target.value})
   }
 
-
   handleSearchTop (e) {
     this.setState({ topic: e.target.value})
   }
 
   handleGoClick () {
-    // if (!this.props.github.isFetchingUser) {
-    //   this.props.actions.fetchUser(this.state)
-    // }
     // send the post request!!!!
     // test by printing
 
@@ -47,19 +43,14 @@ class SearchBar extends Component {
                 placeholder='Enter Location'
                 onChange={this.handleSearchLoc.bind(this)}
                 value={this.state.location} />
-            <button
-                type='submit'
-                onClick={this.handleGoClick.bind(this)}>
-                Search
-            </button>
-            </form>
-            <form onSubmit={e => e.preventDefault()}>
+                <br />
             <input
                 type='text'
                 size='60'
                 placeholder='Enter Topic'
                 onChange={this.handleSearchTop.bind(this)}
                 value={this.state.topic} />
+                <br />
             <button
                 type='submit'
                 onClick={this.handleGoClick.bind(this)}>
