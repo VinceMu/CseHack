@@ -36,6 +36,6 @@ def scraper(location="", topic="", limit=""):
         number of results to query
     """
     # currently can only filter by tags... 
-    if not topic:
-        return search_tags(location)
-    return search_tags(topic)
+    print(location + "||" + topic + "||")
+    arr = search_tags(location)+ search_tags(topic)
+    return arr

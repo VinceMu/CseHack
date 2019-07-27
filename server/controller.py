@@ -1,12 +1,13 @@
-import sentiment_analysis
-import reddit
-import instagram
+import sentiment_analysis.analysis
+import reddit.scraper
+import instagram.scraper
+import twitter.scraper
 
-def scrapeSites(location, topic, limit):
-    text = []
-    text.append(reddit.scraper(location, topic, limit))
-    text.append(instagram.scraper(location, topic, limit))
-    analyse(text)
+def scrapeSites(location, topic, limit=100):
+    # text.append(reddit.scraper.scrape(location, topic, limit))
+    final = instagram.scraper.scraper(location, topic, limit) + twitter.scraper.scrape(location, topic, limit)
+    print(final)
+    return analyse(final)
 
 def analyse(text):
-    return analysis.analyse(text)
+    return sentiment_analysis.analysis.analyse(text)
