@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import '../App/App.css';
 import Button from '@material-ui/core/Button';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+//import Input from '@material-ui/core/Input';
+
+//import { ThemeProvider } from '@material-ui/styles';
 import axios from 'axios'
 import {withRouter} from "react-router-dom";
 const config = {
@@ -13,6 +19,44 @@ const Print = (props) => (
         {/* access message property of props */}
     </p>
 )
+
+const BootstrapButton = withStyles({
+    root: {
+      boxShadow: 'none',
+      textTransform: 'none',
+      fontSize: 16,
+      padding: '6px 12px',
+      border: '1px solid',
+      lineHeight: 1.5,
+      backgroundColor: '#007bff',
+      color: '#ffedee',
+      borderColor: '#007bff',
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      '&:hover': {
+        backgroundColor: '#0069d9',
+        borderColor: '#0062cc',
+      },
+      '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#0062cc',
+        borderColor: '#005cbf',
+      },
+      '&:focus': {
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+      },
+    },
+  })(Button);
 
 class SearchBar extends Component {
   constructor (props) {
@@ -53,30 +97,45 @@ class SearchBar extends Component {
     console.log(this.state)
     return (
         <div className='searchbar-container'>
-            <Print message="Search Anything"/>
+            <Print message="Explore" />
+            {/* <img 
+                className="App-logo"
+                src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
+                alt="new"
+            /> */}
             <form method="POST" className='Search-Bar' onSubmit={e => e.preventDefault()}>
-            <input
-                type='text'
-                size='60'
-                fontSize='50px'
-                placeholder='Enter Location'
+            <TextField
+                id="location"
+                label="Enter Location"
+                //className={classes.textField}
+                value={this.state.location}
                 onChange={this.handleSearchLoc.bind(this)}
-                value={this.state.location} />
-                <br />
-            <input
-                type='text'
-                size='60'
-                placeholder='Enter Topic'
+                margin="normal"
+                variant="filled"
+                style = {{width: 650,
+                    backgroundColor: "white"}}
+                //backgroundColor = theme.palette.common.white
+            />
+            <br />
+            <TextField
+                id="text"
+                label="Enter Topic"
+                value={this.state.topic}
                 onChange={this.handleSearchTop.bind(this)}
-                value={this.state.topic} />
-                <br />
-            <Button
-                type='primary'
-                color='white'
+                margin="normal"
+                variant="filled"
+                style = {{width: 650,
+                    backgroundColor: "white"
+                }}
+            />
+
+            <br />
+            <BootstrapButton
+                type='submit'
                 size='large'
                 onClick={this.handleGoClick.bind(this)}>
                 Search
-            </Button>
+            </BootstrapButton>
             </form>
             {/* <Print message={"Searching location: " + this.state.location}/> */}
             {/* <Print message={"Searching topic: " + this.state.topic}/> */}
