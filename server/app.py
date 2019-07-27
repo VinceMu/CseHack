@@ -7,11 +7,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/search", methods=["GET", "POST"])
+
+@app.route("/search", methods=[ "POST"])
 def search():
-    if request.method == 'POST':
-        form = request.form
-        controller.scrapeSites(form.get('location'), form.get('topic'), form.get('limit'))
+    form = request.json
+
+    return controller.scrapeSites(form['location'], form['topic'])
 
 
 if __name__ == "__main__":

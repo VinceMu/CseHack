@@ -38,8 +38,8 @@ def scrape(location="", topic="", limit=100):
         return tweets
     api = sign_in()
     query       = topic
-    osm_geocode = geocoder.osm()
-    geocode     = "-33.865143,151.209900,1000km"
+    osm_geocode = geocoder.osm(location).json
+    geocode = str(osm_geocode["lat"]) + "," +str(osm_geocode["lng"]) + "," + "1000km"
     lang        = "EN"
     locale      = ""
     count       = limit
@@ -47,12 +47,8 @@ def scrape(location="", topic="", limit=100):
     search_results = api.search(topic,lang=lang,count=count,geocode=geocode)
     for tweet in search_results:
         text = clean_text(tweet.text)
-        if len(text.strip())>0:
+        if len(text)>0:
+            print(text)
             tweets.append(text)
     return tweets
 
-a = geocoder.osm("Australia")
-print(a.json)
-tweets = scrape("","soccer")
-for tweet in tweets:
-    print(tweet)
