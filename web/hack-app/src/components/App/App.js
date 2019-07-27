@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import SearchBar from '../Search'
 import ResultsPage from "../Results/ResultsPage"
-import { BrowserRouter as Router ,Route,Switch} from 'react-router-dom'
+import { BrowserRouter as Router ,Route,Switch,withRouter} from 'react-router-dom'
+
 function App() {
   return (
     <div className="App">

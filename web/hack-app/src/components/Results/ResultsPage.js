@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../App/App.css';
 import Button from '@material-ui/core/Button';
+import {withRouter} from "react-router-dom"
 
-export default class ResultsPage extends Component{
+class ResultsPage extends Component{
 
     render (){
         return(
@@ -12,3 +13,4 @@ export default class ResultsPage extends Component{
         );
     }
 }
+export default withRouter(ResultsPage);
