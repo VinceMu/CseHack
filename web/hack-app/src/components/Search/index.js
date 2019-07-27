@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../App/App.css';
+import Button from '@material-ui/core/Button';
+import axios from 'axios'
 
 const Print = (props) => (
     <p>
@@ -28,18 +30,30 @@ class SearchBar extends Component {
   handleGoClick () {
     // send the post request!!!!
     // test by printing
+    //
 
+    axios.post('localhost:8080/search', {
+        location: this.state.location,
+        topic: this.state.topic
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render () {
+      console.log(this.state)
     return (
         <div className='searchbar-container'>
             <Print message="Search Anything"/>
-            <form className='Search-Bar' onSubmit={e => e.preventDefault()}>
+            <form method="POST" className='Search-Bar' onSubmit={e => e.preventDefault()}>
             <input
                 type='text'
                 size='60'
-                font-size='50px'
+                fontSize='50px'
                 placeholder='Enter Location'
                 onChange={this.handleSearchLoc.bind(this)}
                 value={this.state.location} />
@@ -51,14 +65,16 @@ class SearchBar extends Component {
                 onChange={this.handleSearchTop.bind(this)}
                 value={this.state.topic} />
                 <br />
-            <button
-                type='submit'
+            <Button
+                type='primary'
+                color='white'
+                size='large'
                 onClick={this.handleGoClick.bind(this)}>
                 Search
-            </button>
+            </Button>
             </form>
-            <Print message={"Searching location: " + this.state.location}/>
-            <Print message={"Searching topic: " + this.state.topic}/>
+            {/* <Print message={"Searching location: " + this.state.location}/> */}
+            {/* <Print message={"Searching topic: " + this.state.topic}/> */}
         </div>
     )
   }

@@ -7,7 +7,7 @@ import SearchBar from '../Search'
 function App() {
   return (
     <div className="App">
-      <h1>Blah</h1>
+      <h1>iMu</h1>
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <p>
