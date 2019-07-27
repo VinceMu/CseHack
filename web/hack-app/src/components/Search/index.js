@@ -75,16 +75,16 @@ class SearchBar extends Component {
     this.setState({ topic: e.target.value})
   }
 
-  handleGoClick () {
+  handleGoClick =()=> {
     axios.post('http://127.0.0.1:5000/search', {
         location: this.state.location,
         topic: this.state.topic
       },config)
-      .then(function (response) {
+      .then( (response) =>{
         console.log(response);
         const payload = response.data; 
         this.props.history.push({
-          path:"/result",
+          pathname:"/result",
           state:payload
         })
       })
@@ -94,7 +94,6 @@ class SearchBar extends Component {
   }
 
   render () {
-    console.log(this.state)
     return (
         <div className='searchbar-container'>
             <Print message="Give power to the people." />
@@ -133,7 +132,7 @@ class SearchBar extends Component {
             <BootstrapButton
                 type='submit'
                 size='large'
-                onClick={this.handleGoClick.bind(this)}>
+                onClick={this.handleGoClick}>
                 Search
             </BootstrapButton>
             </form>

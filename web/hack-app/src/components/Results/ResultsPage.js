@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import '../App/App.css';
-import Button from '@material-ui/core/Button';
 //import the desired component from the Chart.js library
 import { Bar, Line, Doughnut, Radar } from "react-chartjs-2"
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import {withRouter} from "react-router-dom"
+
 
 var Chart = require("chart.js");
 const Print = (props) => (
@@ -15,10 +17,6 @@ const Print = (props) => (
         {/* access message property of props */}
     </h2>
 )
-
-// var CanvasJSReact = require('../../../src/canvasjs.react');
-// var CanvasJS = CanvasJSReact.CanvasJS;
-// var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-export default class ResultsPage extends Component {
+ class ResultsPage extends Component {
 
     constructor(props) {
         console.log(props);
@@ -231,4 +229,8 @@ export default class ResultsPage extends Component {
         )
     }
 }
+<<<<<<< HEAD
 
+=======
+export default withRouter(ResultsPage);
+>>>>>>> 89507d3092d52b8011ca816dc15701be5cab37b4
