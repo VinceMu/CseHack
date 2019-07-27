@@ -25,7 +25,7 @@ def search_tags(tag=""):
     return captions
 
 # main scraper method for all social media platforms
-def scraper(location="", topic="", limit="", time=""):
+def scraper(location="", topic="", limit=""):
     """
     Parameters:
     location : str
@@ -34,8 +34,6 @@ def scraper(location="", topic="", limit="", time=""):
         filter by a topic/search term
     limit : int
         number of results to query
-    time : timestamp?
-        oldest record to go to
     """
     # currently can only filter by tags... 
     if not topic:

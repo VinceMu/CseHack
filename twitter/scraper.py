@@ -1,8 +1,7 @@
 import tweepy
 import json
 import os
-
-import .helper.utils
+import re 
 
 # https://developer.twitter.com/en/docs.html
 # can use bounding box for location filtering 
@@ -16,6 +15,15 @@ def sign_in():
     auth.set_access_token(os.environ.get("ACCESS_TOKEN"), os.environ.get("ACCESS_SECRET"))
     api = tweepy.API(auth)
     return api
+
+def clean_text(text):
+    patterns = [
+        "((http(s)?(\:\/\/))+(www\.)?([\w\-\.\/])*(\.[a-zA-Z]{2,3}\/?))[^\s\b\n|]*[^.,;:\?\!\@\^\$ -]"
+        , "#"
+    ]
+    for pattern in patterns:
+        text = re.sub(pattern, "", text, flags=re.MULTILINE)
+    return text
 
 def scrape(location="", topic="", limit=""):
     """
@@ -36,7 +44,9 @@ def scrape(location="", topic="", limit=""):
     
     search_results = api.search(topic,lang=lang,count=count)
     for tweet in search_results:
-        tweets.append(tweet.text)
+        text = clean_text(tweet.text)
+        if len(text)>0:
+            tweets.append(text)
     return tweets
 
 
