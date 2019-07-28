@@ -39,7 +39,7 @@ def scrape(location="", topic="", limit=100):
     api = sign_in()
     query       = topic
     osm_geocode = geocoder.osm(location).json
-    geocode = str(osm_geocode["lat"]) + "," +str(osm_geocode["lng"]) + "," + "1000km"
+    geocode = str(osm_geocode["lat"]) + "," +str(osm_geocode["lng"]) + "," + "500km"
     lang        = "EN"
     locale      = ""
     count       = limit

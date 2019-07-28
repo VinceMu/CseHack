@@ -3,6 +3,7 @@ from msrest.authentication import CognitiveServicesCredentials
 import sentiment_analysis.config as config
 import itertools
 import pprint
+import re
 import jsonpickle
 
 
@@ -10,7 +11,7 @@ credentials = CognitiveServicesCredentials(config.key)
 client = TextAnalyticsClient(endpoint=config.endpoint,credentials=credentials)
 
 
-def request_sentiment(documents,inverse_threshold=0):
+def request_sentiment(documents,inverse_threshold=0.5):
     response = client.sentiment(documents=documents).documents
     if inverse_threshold == 0:
         return response
@@ -55,6 +56,8 @@ def provide_entity_matrix(result):
     entity_matrix={}
     for analysis in result:
         for entity in analysis["entities"]:
+            if re.match("\d",entity.name):
+                continue
             if entity.name in entity_matrix:
                 statistics = entity_matrix[entity.name]
                 statistics["frequency"] += 1
@@ -71,6 +74,8 @@ def provide_key_word_matrix(result):
     key_phrases={}
     for analysis in result:
         for phrase in analysis["key_phrases"]:
+            if re.match(".*[0-9].*",phrase,re.MULTILINE):
+                continue
             if phrase in key_phrases:
                 statistics = key_phrases[phrase]
                 statistics["frequency"] += 1

@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 
  class ResultsPage extends Component {
 
+
     constructor(props) {
         console.log(props);
         super(props);
@@ -72,40 +73,42 @@ const useStyles = makeStyles(theme => ({
                 min: 0
             }
         });
-        var data = {
-            "entity": {
-                "Germany": {
-                    "avg_sentiment": 0.2973507046699524,
-                    "frequency": 1
-                },
-                "Mexico\\u2013United States barrier": {
-                    "avg_sentiment": 0.8444602489471436,
-                    "frequency": 1
-                },
-                "Spain": {
-                    "avg_sentiment": 0.9474703073501587,
-                    "frequency": 1
-                }
-            },
-            "key_phrases": {
-                "Germany": {
-                    "avg_sentiment": 0.2973507046699524,
-                    "frequency": 1
-                },
-                "Mexican border wall": {
-                    "avg_sentiment": 0.8444602489471436,
-                    "frequency": 1
-                },
-                "Spain": {
-                    "avg_sentiment": 0.9474703073501587,
-                    "frequency": 1
-                },
-                "fun holiday": {
-                    "avg_sentiment": 0.9474703073501587,
-                    "frequency": 1
-                }
-            }
-        }
+        var data = this.props.location.state; 
+        console.log(data);
+        // var data = {
+        //     "entity": {
+        //         "Germany": {
+        //             "avg_sentiment": 0.2973507046699524,
+        //             "frequency": 1
+        //         },
+        //         "Mexico\\u2013United States barrier": {
+        //             "avg_sentiment": 0.8444602489471436,
+        //             "frequency": 1
+        //         },
+        //         "Spain": {
+        //             "avg_sentiment": 0.9474703073501587,
+        //             "frequency": 1
+        //         }
+        //     },
+        //     "key_phrases": {
+        //         "Germany": {
+        //             "avg_sentiment": 0.2973507046699524,
+        //             "frequency": 1
+        //         },
+        //         "Mexican border wall": {
+        //             "avg_sentiment": 0.8444602489471436,
+        //             "frequency": 1
+        //         },
+        //         "Spain": {
+        //             "avg_sentiment": 0.9474703073501587,
+        //             "frequency": 1
+        //         },
+        //         "fun holiday": {
+        //             "avg_sentiment": 0.9474703073501587,
+        //             "frequency": 1
+        //         }
+        //     }
+        // }
 
         var colourGen = function () {
             this.at = 0;
@@ -171,7 +174,7 @@ const useStyles = makeStyles(theme => ({
                 if (phrase) {
                     this.state.phraseData.labels.push(phrase);
                     this.state.phraseData.datasets[0].data.push(data.key_phrases[phrase].avg_sentiment);
-                    //this.state.phraseData.datasets[0].backgroundColor.push(phrase_col_generator.nextColour());
+                    this.state.phraseData.datasets[0].backgroundColor.push(phrase_col_generator.nextColour());
                 }
             }
         }
@@ -185,7 +188,7 @@ const useStyles = makeStyles(theme => ({
                 <Grid container justify="center" item xs={6}>
                 
                     <Bar
-                        data={this.state.entityData}
+                        data={this.state.phraseData}
                         width={800}
                         height={400}
                         options={{ maintainAspectRatio: true }}
@@ -196,7 +199,7 @@ const useStyles = makeStyles(theme => ({
                 <Grid container justify="center" item xs={6}>
 
                     <Line
-                        data={this.state.entityData}
+                        data={this.state.phraseData}
                         width={800}
                         height={400}
                         options={{ maintainAspectRatio: true }}
@@ -206,7 +209,7 @@ const useStyles = makeStyles(theme => ({
                 </Grid>
                 <Grid container justify="center" item xs={6}>
                     <Doughnut
-                        data={this.state.entityData}
+                        data={this.state.phraseData}
                         width={800}
                         height={400}
                         options={{ maintainAspectRatio: true }}
@@ -215,7 +218,7 @@ const useStyles = makeStyles(theme => ({
                 </Grid>
                 <Grid container justify="center" item xs={6}>
                     <Radar
-                        data={this.state.entityData}
+                        data={this.state.phraseData}
                         width={800}
                         height={400}
                         options={{ maintainAspectRatio: true }}
@@ -229,8 +232,4 @@ const useStyles = makeStyles(theme => ({
         )
     }
 }
-<<<<<<< HEAD
-
-=======
 export default withRouter(ResultsPage);
->>>>>>> 89507d3092d52b8011ca816dc15701be5cab37b4
